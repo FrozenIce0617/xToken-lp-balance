@@ -1,6 +1,9 @@
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
+  modalWrapper: {
+    minWidth: 432,
+  },
   modalHeader: {
     display: 'flex',
     justifyContent: 'space-between',
