@@ -1,10 +1,15 @@
 import { useCallback, useState } from 'react';
+import { useWeb3React } from '@web3-react/core';
 import { Box, Button } from '@material-ui/core';
 
 import WalletModal from 'src/components/WalletModal';
+import { getShortAddress } from 'src/utils/addressHelper';
+import useStyles from './Account.style';
 
 const Account = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const { account, error } = useWeb3React();
+  const classes = useStyles();
 
   const handleConnect = useCallback(() => {
     setModalOpen(true);
@@ -14,13 +19,26 @@ const Account = () => {
     setModalOpen(false);
   }, []);
 
+  const renderAccountHandler = () => {
+    if (account) {
+      return (
+        <Button className={classes.accountBalance}>
+          {getShortAddress(account)}
+        </Button>
+      );
+    }
+    return (
+      <Button color="secondary" variant="contained" onClick={handleConnect}>
+        Connect Wallet
+      </Button>
+    );
+  };
+
   return (
     <>
       <WalletModal isOpen={isModalOpen} onClose={handleClose} />
       <Box display="flex" alignItems="center">
-        <Button color="secondary" variant="contained" onClick={handleConnect}>
-          Connect Wallet
-        </Button>
+        {renderAccountHandler()}
       </Box>
     </>
   );
