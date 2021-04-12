@@ -4,6 +4,7 @@ import { Box, Button } from '@material-ui/core';
 
 import WalletModal from 'src/components/WalletModal';
 import { getShortAddress } from 'src/utils/addressHelper';
+import MetaMaskImg from 'src/assets/images/metamask.svg';
 import useStyles from './Account.style';
 
 const Account = () => {
@@ -22,7 +23,16 @@ const Account = () => {
   const renderAccountHandler = () => {
     if (account) {
       return (
-        <Button className={classes.accountBalance}>
+        <Button
+          className={classes.accountBalance}
+          startIcon={
+            <img
+              className={classes.walletLogo}
+              src={MetaMaskImg}
+              alt="MetaMask"
+            />
+          }
+        >
           {getShortAddress(account)}
         </Button>
       );
